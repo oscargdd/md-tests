@@ -6,7 +6,7 @@ name: RELEASE
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   release:
-    branches: [ "main" ]
+    types: [published]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -56,13 +56,19 @@ jobs:
           name: output
           path: output
           
+      # zips
+      - name: List files in the repository
+        run: |
+          cd output
+          zip salida.zip *.docx
+          
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          asset_path: output
-          asset_name: output.zip
+          asset_path: output/salida.zip
+          asset_name: salida.zip
           asset_content_type: application/zip
           upload_url: ${{ github.event.release.upload_url }}
           

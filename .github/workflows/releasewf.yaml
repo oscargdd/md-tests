@@ -63,6 +63,7 @@ jobs:
         with:
           asset_path: output
           asset_name: output.zip
+          asset_content_type: application/zip
           upload_url: ${{ github.event.release.upload_url }}
           
           
